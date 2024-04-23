@@ -1,0 +1,28 @@
+﻿@model List<dynamic>
+
+<h1>Students and teachers in Programming 1</h1>
+
+@if (Model.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Teacher</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var studentInfo in Model)
+            {
+                <tr>
+                    <td>@studentInfo.StudentName</td>
+                    <td>@studentInfo.TeacherName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No students found in Programming 1.</p>
+}

@@ -1,0 +1,33 @@
+﻿@model List<LinqSchool.Models.Teacher>
+
+<h1>Teachers with subjects</h1>
+<script>
+    console.log("@ViewBag.SelectedSubjectId");
+</script>
+
+<form asp-controller="TeacherProgramming1" asp-action="GetTeacherForSubject" method="get">
+    <label for="subjectId">Select Subject:</label>
+    <select id="subjectId" name="subjectId" >
+    @foreach (var subject in ViewBag.Subjects)
+    {
+            <option value="@subject.SubjectId" selected="@((subject.SubjectId == ViewBag.SelectedSubjectId) ? "selected" : null)">@subject.SubjectName</option>
+    }
+</select>
+<button type="submit">Submit</button>
+    </form>
+
+<div>
+    @if ((bool)(ViewBag.HasTeachers ?? false))
+    {
+        <ul>
+            @foreach (var teacher in Model)
+            {
+                <li>@teacher.TeacherFirstName @teacher.TeacherLastName</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No teachers found</p>
+    }
+</div>

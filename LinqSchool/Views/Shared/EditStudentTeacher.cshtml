@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LinqSchool.Models.Student>
+
+@{
+    ViewBag.Title = "Edit teacher for student";
+}
+
+<h2>Edit Student Teacher</h2>
+
+<form asp-action="UpdateTeacher" method="post">
+    <label for="studentId">Select Student:</label>
+    <select id="studentId" name="studentId" class="form-control">
+        @if (ViewBag.Students != null)
+        {
+            foreach (var student in ViewBag.Students)
+            {
+                // Ställ in studentens ID från TempData som valt om det matchar det aktuella studentens ID
+                var isSelected = TempData["SelectedStudentId"] != null && (int)TempData["SelectedStudentId"] == student.StudentId;
+                <option value="@student.StudentId" selected="@isSelected">@student.StudentFirstName @student.StudentLastName</option>
+            }
+        }
+    </select>
+    <br />
+    <label for="teacherId">Select Teacher:</label>
+    <select id="teacherId" name="teacherId" class="form-control">
+        @if (ViewBag.Teachers != null)
+        {
+            foreach (var teacher in ViewBag.Teachers)
+            {
+                // Ställ in lärarens ID från TempData som valt om det matchar det aktuella lärarens ID
+                var isSelected = TempData["SelectedTeacherId"] != null && (int)TempData["SelectedTeacherId"] == teacher.TeacherId;
+                <option value="@teacher.TeacherId" selected="@isSelected">@teacher.TeacherFirstName @teacher.TeacherLastName</option>
+            }
+        }
+    </select>
+    <br />
+    <button type="submit" class="btn btn-primary">Update Teacher</button>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+</form>
